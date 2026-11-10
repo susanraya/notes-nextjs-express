@@ -20,9 +20,8 @@ async function clearAll(page: Page) {
 }
 
 const AUTH_RE = /\b(log\s?in|log\s?out|sign\s?in|sign\s?up|register|password|create an account)\b/i;
-const PAYMENT_RE = /\b(payment|billing|subscription|subscribe|paywall|upgrade|pricing|checkout|credit card|trial)\b/i;
-const SYNC_RE = /\b(backup|export|import|sync|synchroni[sz]e)\b/i;
-
+const PAYMENT_RE =
+  /\b(payment|billing|subscription|subscribe|paywall|upgrade|pricing|checkout|credit card|trial)\b/i;
 test.beforeEach(async ({ page }) => {
   await clearAll(page);
 });
@@ -79,12 +78,17 @@ test("[AC-030][NFR-001][NFR-002] creating, viewing and searching a note sends ze
   const origin = new URL(page.url()).origin;
   for (const req of requests) {
     const url = req.url();
-    const isSameOrigin = url.startsWith(origin) || url.startsWith("http://127.0.0.1") || url.startsWith("http://localhost");
+    const isSameOrigin =
+      url.startsWith(origin) ||
+      url.startsWith("http://127.0.0.1") ||
+      url.startsWith("http://localhost");
     expect.soft(isSameOrigin, `request to third-party origin: ${url}`).toBeTruthy();
 
     const postData = req.postData();
     expect.soft(url.includes(secret), `note content leaked in URL: ${url}`).toBeFalsy();
-    expect.soft(postData?.includes(secret) ?? false, `note content leaked in request body to ${url}`).toBeFalsy();
+    expect
+      .soft(postData?.includes(secret) ?? false, `note content leaked in request body to ${url}`)
+      .toBeFalsy();
   }
 });
 
@@ -108,7 +112,9 @@ test("[AC-016] the help screen states notes are browser-only, unsynced, and lost
   await expect(page.getByText(/kept only in this browser on this device/i)).toBeVisible();
   await expect(page.getByText(/no sync across devices or browsers/i)).toBeVisible();
   await expect(
-    page.getByText(/clear your browser data, change browser or change device, these notes will not follow you/i),
+    page.getByText(
+      /clear your browser data, change browser or change device, these notes will not follow you/i,
+    ),
   ).toBeVisible();
 });
 

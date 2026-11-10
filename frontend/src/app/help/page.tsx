@@ -3,15 +3,12 @@
 // cannot do. Next.js renders on the server unless a module says otherwise.
 
 // @ts-nocheck -- generated from the approved design under its JS runtime contract; not hand-written TypeScript.
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 
 import * as UI from "@/lib/ui";
 import { Icons } from "@/lib/icons";
 import { brand } from "@/lib/brand";
 import { useNavigate } from "@/lib/navigate";
-
-const { Search, Edit } = Icons;
 
 const INK = brand.primaryColor;
 const GOLD = brand.accentColor;
@@ -315,10 +312,13 @@ export default function Screen() {
             <h2 className="text-[18px] uppercase sm:text-[20px]" style={headingStyle}>
               Privacy &amp; compliance note
             </h2>
-            <p className="mx-auto mt-5 max-w-[62ch] text-[13px] leading-[1.7]" style={{ color: MUTED }}>
+            <p
+              className="mx-auto mt-5 max-w-[62ch] text-[13px] leading-[1.7]"
+              style={{ color: MUTED }}
+            >
               No personal data ever leaves this browser — nothing is sent to a server, and the app
-              loads no analytics, telemetry or third-party tracking of any kind. Because no
-              personal data reaches a server, we treat India&rsquo;s DPDP server-side obligations
+              loads no analytics, telemetry or third-party tracking of any kind. Because no personal
+              data reaches a server, we treat India&rsquo;s DPDP server-side obligations
               (consent/notice, breach notification and data residency) as not triggered. This is an
               assumption to be validated, not a legal conclusion.
             </p>

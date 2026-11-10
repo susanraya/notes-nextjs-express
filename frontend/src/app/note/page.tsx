@@ -3,7 +3,6 @@
 // cannot do. Next.js renders on the server unless a module says otherwise.
 
 // @ts-nocheck -- generated from the approved design under its JS runtime contract; not hand-written TypeScript.
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -14,8 +13,6 @@ import { useNavigate } from "@/lib/navigate";
 import { db } from "@/lib/db";
 
 const { Button, Input, Textarea, Label, Badge } = UI;
-
-const { Edit } = Icons;
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 

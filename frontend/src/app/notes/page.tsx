@@ -3,7 +3,6 @@
 // cannot do. Next.js renders on the server unless a module says otherwise.
 
 // @ts-nocheck -- generated from the approved design under its JS runtime contract; not hand-written TypeScript.
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { useRouter } from "next/navigation";
 
@@ -13,10 +12,7 @@ import { brand } from "@/lib/brand";
 import { useNavigate } from "@/lib/navigate";
 import { db } from "@/lib/db";
 
- 
 const { Button, Input, Label, Badge, Empty } = UI;
- 
-const { Search, Filter } = Icons;
 
 const SCREEN = "My Notes";
 

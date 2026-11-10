@@ -5,7 +5,7 @@
 <!-- sdlc:auto:start overview -->
 simple notes app without login
 
-**Documentation version:** v3
+**Documentation version:** v4
 <!-- sdlc:auto:end overview -->
 
 ## Contents
@@ -15,7 +15,7 @@ simple notes app without login
 |---|---|
 | [Requirements](requirements/README.md) | v1 approved |
 | [Architecture](architecture/README.md) | 7 entries |
-| [Development](development/README.md) | 9 entries |
+| [Development](development/README.md) | 15 entries |
 | [Testing](testing/README.md) | 0 entries |
 | [Deployment](deployment/README.md) | 0 entries |
 | [Maintenance](maintenance/README.md) | 0 entries |
@@ -24,12 +24,12 @@ simple notes app without login
 | [Decisions (ADRs)](architecture/adr/README.md) | 4 decisions |
 | [Sprint plan](development/sprint-plan.md) | 3 sprints |
 | [Developer guide](development/developer-guide.md) | generated |
-| [API reference](development/api-reference.md) | 1 route |
+| [API reference](development/api-reference.md) | 3 routes |
 | [Test report](testing/test-report.md) | not run yet |
-| [Tests](testing/test-cases.md) | 0 tests |
+| [Tests](testing/test-cases.md) | 37 tests |
 | [Deployment guide](deployment/deployment-guide.md) | not deployed yet |
 | [Runbook](deployment/runbook.md) | not deployed yet |
 | [Release notes](deployment/release-notes.md) | 0 releases |
 | [Traceability matrix](traceability-matrix.md) | 15 requirements |
-| [Changelog](CHANGELOG.md) | 3 versions |
+| [Changelog](CHANGELOG.md) | 4 versions |
 <!-- sdlc:auto:end contents -->

@@ -3,75 +3,123 @@
 > Maintained by QuorQ AI SDLC. Text between `sdlc:auto` markers is regenerated; anything outside them is yours and is kept.
 
 <!-- sdlc:auto:start narrative -->
-### DEV-PLAN-001 · approved · source: plan:approved-v1
+### DEV-PLAN-v1 · approved · source: plan:v1
 
-Development plan version 1 approved, organizing the notes app build into 3 sprints of 20-point capacity each, covering core note creation/persistence, editing/search/tagging, and responsive polish plus help docs.
+Development plan version 1 was approved, structured as three 20-point sprints moving from core note creation through editing/search/tags to responsive polish and help docs.
 
-Plan status: approved, version 1. Total of 3 sprints planned, each with capacity=20 points. Sprint 1 goal: login-free app shell, core note creation with local persistence, list view, automatic timestamps, and baseline privacy/help framing. Sprint 2 goal: edit, delete, search and tag notes, including tag-based filtering, on top of the core note store. Sprint 3 goal: responsive layout polish across all features and shipping usage/help documentation. No execution status (ticket completion, code review, or test results) was included in this input.
+Plan status: approved (version 1). Sprint 1 goal: login-free app shell, core note creation with local persistence, list view, automatic timestamps, and baseline privacy/help framing (capacity 20). Sprint 2 goal: edit, delete, search and tag notes, including tag-based filtering, on top of the core note store (capacity 20). Sprint 3 goal: responsive layout polish across all features and ship usage/help documentation (capacity 20). Epics: EPIC-001 Instant, Login-Free Access and Note Creation; EPIC-002 Managing Existing Notes; EPIC-003 Local Persistence and Accepted Data Loss; EPIC-004 Full-Text Search and Tag-Based Organisation; EPIC-005 Responsive Web Delivery, Privacy and Help.
 
 **Related:** US-001, US-002, US-003, US-004, US-005, US-006, US-007, US-008, US-009, US-010, US-011, US-012, US-013, US-014, US-015
 
-### DEV-SPRINT-1 · draft · source: plan:Sprint 1
+### DEV-PLAN-Sprint1 · approved · source: plan:Sprint 1
 
-Sprint 1 scope: login-free app shell, core note creation with local persistence, list view, automatic timestamps, and baseline privacy/help framing. Capacity 20 points.
+Sprint 1 targeted the login-free app shell, core note creation, list view, timestamps, local persistence and baseline privacy/help framing.
 
-Items assigned (frontend-agent unless noted): US-001 Open the app and start writing immediately (3 pts); US-002 Create a plain-text note with a title and body (5 pts); US-003 See all notes in a list (3 pts); US-006 Automatic created and last-updated timestamps (2 pts); US-007 Notes persist on the device between visits (3 pts); US-008 Understand that notes are device-only and can be lost (1 pt). No completion or test status provided for these items in this input.
+Capacity: 20 points. Goal: 'Login-free app shell, core note creation with local persistence, list view, automatic timestamps, and baseline privacy/help framing.'
 
 **Related:** US-001, US-002, US-003, US-006, US-007, US-008
 
-### DEV-SPRINT-2 · draft · source: plan:Sprint 2
+### DEV-PLAN-Sprint2 · approved · source: plan:Sprint 2
 
-Sprint 2 scope: edit, delete, search and tag notes, including tag-based filtering, on top of the core note store. Capacity 20 points.
+Sprint 2 targeted edit, delete, search and tag/filter functionality on top of the core note store.
 
-Items assigned (frontend-agent): US-004 Edit an existing note (3 pts); US-005 Delete a note (2 pts); US-009 Full-text search across all notes (5 pts); US-010 Apply free-form tags to a note (3 pts); US-011 Filter the note list by tag (2 pts). No completion or test status provided for these items in this input.
+Capacity: 20 points. Goal: 'Edit, delete, search and tag notes, including tag-based filtering, on top of the core note store.'
 
 **Related:** US-004, US-005, US-009, US-010, US-011
 
-### DEV-SPRINT-3 · draft · source: plan:Sprint 3
+### DEV-PLAN-Sprint3 · approved · source: plan:Sprint 3
 
-Sprint 3 scope: responsive layout polish across all features and shipping the usage/help documentation. Capacity 20 points.
+Sprint 3 targeted responsive layout polish across all features and shipping usage/help documentation.
 
-Items assigned: US-012 Responsive layout for mobile and desktop browsers (5 pts, frontend-agent); US-013 Free app with no payments or monetisation (1 pt, frontend-agent); US-014 No analytics, tracking, or server-side personal data (2 pts, security-agent); US-015 Basic usage and help documentation (2 pts, frontend-agent). No completion or test status provided for these items in this input.
+Capacity: 20 points. Goal: 'Responsive layout polish across all features and ship the usage/help documentation.'
 
-**Related:** US-012, US-013, US-014, US-015
+**Related:** US-012, US-015
 
-### EPIC-001 · draft · source: plan:EPIC-001
+### DEV-US-001 · approved · source: dev:US-001
 
-Epic covering instant, login-free access and note creation.
+Ticket for 'Open the app and start writing immediately' was delivered.
 
-Groups US-001 (Open the app and start writing immediately, 3 pts) and US-002 (Create a plain-text note with a title and body, 5 pts). No point total or role assigned at epic level; both child stories assigned to frontend-agent, planned in Sprint 1.
+Status: delivered. Commit: ce9e8d21eb8cd701a485d9e0b4e6a1ddd6b1a396.
+
+**Related:** US-001
+
+### DEV-US-002 · approved · source: dev:US-002
+
+Ticket for 'Create a plain-text note with a title and body' was delivered.
+
+Status: delivered. Commit: 9a43944602578b720a6d95354d4e0fc70d72f323.
+
+**Related:** US-002
+
+### DEV-US-003 · approved · source: dev:US-003
+
+Ticket for 'See all notes in a list' was delivered.
+
+Status: delivered. Commit: 9a43944602578b720a6d95354d4e0fc70d72f323.
+
+**Related:** US-003
+
+### DEV-US-006 · approved · source: dev:US-006
+
+Ticket for 'Automatic created and last-updated timestamps' was delivered.
+
+Status: delivered. Commit: 9a43944602578b720a6d95354d4e0fc70d72f323.
+
+**Related:** US-006
+
+### DEV-US-008 · approved · source: dev:US-008
+
+Ticket for 'Understand that notes are device-only and can be lost' was delivered.
+
+Status: delivered. Commit: ce9e8d21eb8cd701a485d9e0b4e6a1ddd6b1a396.
+
+**Related:** US-008
+
+### DEV-US-013 · approved · source: dev:US-013
+
+Ticket for 'Free app with no payments or monetisation' was delivered.
+
+Status: delivered. Commit: ce9e8d21eb8cd701a485d9e0b4e6a1ddd6b1a396.
+
+**Related:** US-013
+
+### DEV-US-014 · approved · source: dev:US-014
+
+Ticket for 'No analytics, tracking, or server-side personal data' was delivered.
+
+Status: delivered. Commit: ce9e8d21eb8cd701a485d9e0b4e6a1ddd6b1a396.
+
+**Related:** US-014
+
+### DEV-GAP-NOTE · draft · source: dev:run-status
+
+Development run status is reported as 'completed', but no ticket records were supplied for 8 of the 15 planned stories.
+
+The following story tickets have no delivery record in the input and their build status is unconfirmed: US-004 (Edit an existing note), US-005 (Delete a note), US-007 (Notes persist on the device between visits), US-009 (Full-text search across all notes), US-010 (Apply free-form tags to a note), US-011 (Filter the note list by tag), US-012 (Responsive layout for mobile and desktop browsers), US-015 (Basic usage and help documentation).
+
+**Related:** US-004, US-005, US-007, US-009, US-010, US-011, US-012, US-015
+
+### GUIDE-1 · approved · source: dev:US-001,US-002
+
+The screen you land on when opening the app, where you can start a new note right away.
+
+Step 1: Open the app in your browser; it loads directly into the note-taking interface with no login or sign-up step. Step 2: Enter a title for your note in the title field. Step 3: Enter the text of your note in the body field. Step 4: The note is created from the title and body you entered.
 
 **Related:** US-001, US-002
 
-### EPIC-002 · draft · source: plan:EPIC-002
+### GUIDE-2 · approved · source: dev:US-003,US-006
 
-Epic covering management of existing notes: listing, editing, deleting, and timestamps.
+The list view where all of your notes are shown together with their timestamps.
 
-Groups US-003 (See all notes in a list, 3 pts, Sprint 1), US-004 (Edit an existing note, 3 pts, Sprint 2), US-005 (Delete a note, 2 pts, Sprint 2), and US-006 (Automatic created and last-updated timestamps, 2 pts, Sprint 1). All assigned to frontend-agent. No epic-level point total or role given.
+Step 1: View the list of all notes you have created. Step 2: Each note in the list shows its title. Step 3: Each note shows the date and time it was created, recorded automatically. Step 4: Each note shows the date and time it was last updated, recorded automatically.
 
-**Related:** US-003, US-004, US-005, US-006
+**Related:** US-003, US-006
 
-### EPIC-003 · draft · source: plan:EPIC-003
+### GUIDE-3 · approved · source: dev:US-008,US-013,US-014
 
-Epic covering local persistence of notes and user acceptance of device-only data loss risk.
+Notices shown to the user about privacy, cost, and where notes are stored.
 
-Groups US-007 (Notes persist on the device between visits, 3 pts) and US-008 (Understand that notes are device-only and can be lost, 1 pt), both frontend-agent, planned in Sprint 1. No epic-level point total or role given.
+Step 1: Read the notice explaining that notes are stored only on this device and can be lost (for example, if browser data is cleared or you switch devices). Step 2: Note that the app is free to use, with no payments or subscriptions required. Step 3: Note that the app does not collect analytics or tracking data, and does not send personal data to a server.
 
-**Related:** US-007, US-008
-
-### EPIC-004 · draft · source: plan:EPIC-004
-
-Epic covering full-text search and tag-based organisation of notes.
-
-Groups US-009 (Full-text search across all notes, 5 pts), US-010 (Apply free-form tags to a note, 3 pts), and US-011 (Filter the note list by tag, 2 pts), all frontend-agent, planned in Sprint 2. No epic-level point total or role given.
-
-**Related:** US-009, US-010, US-011
-
-### EPIC-005 · draft · source: plan:EPIC-005
-
-Epic covering responsive web delivery, privacy posture, and help documentation.
-
-Groups US-012 (Responsive layout for mobile and desktop browsers, 5 pts, frontend-agent), US-013 (Free app with no payments or monetisation, 1 pt, frontend-agent), US-014 (No analytics, tracking, or server-side personal data, 2 pts, security-agent), and US-015 (Basic usage and help documentation, 2 pts, frontend-agent). All planned in Sprint 3. No epic-level point total or role given.
-
-**Related:** US-012, US-013, US-014, US-015
+**Related:** US-008, US-013, US-014
 <!-- sdlc:auto:end narrative -->

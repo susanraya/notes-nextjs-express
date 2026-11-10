@@ -2,6 +2,52 @@
 openapi: 3.1.0
 info:
   title: notes nextjs express
-  version: architecture-v0
+  version: architecture-v1
   description: Designed API from the approved architecture (not extracted from code).
-paths: {}
+paths:
+  /*:
+    get:
+      summary: Serve the built Next.js app files, PWA manifest and service worker
+        to the browser. No note data is handled server-side.
+      description: Serve the built Next.js app files, PWA manifest and service worker
+        to the browser. No note data is handled server-side.
+      operationId: get
+      parameters: []
+      responses:
+        '200':
+          description: HTML/JS/CSS/manifest/service-worker assets
+  /healthz:
+    get:
+      summary: Liveness probe for the static app server.
+      description: Liveness probe for the static app server.
+      operationId: get_healthz
+      parameters: []
+      responses:
+        '200':
+          description: '200 { status: ''ok'' }'
+components:
+  schemas:
+    note:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        body:
+          type: string
+        tags:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - body
+      - tags
+      - created_at
+      - updated_at

@@ -100,7 +100,9 @@ describe("My Notes", () => {
     rows = [NOTE_A];
     render(<Page />);
 
-    await waitFor(() => expect(screen.getByText(/updated 10 nov 2026, 11:42/i)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText(/updated 10 nov 2026, 11:42/i)).toBeInTheDocument(),
+    );
     expect(screen.getByText(/created 03 nov 2026, 09:10/i)).toBeInTheDocument();
   });
 

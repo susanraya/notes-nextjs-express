@@ -61,7 +61,9 @@ test("[AC-004][AC-006] a note saved with body text and no title appears in the l
 
   await expect(page).toHaveURL(/\/notes/, { timeout: 10_000 });
   const preview = body.slice(0, 44).trim();
-  await expect(page.getByText(new RegExp(preview.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")))).toBeVisible();
+  await expect(
+    page.getByText(new RegExp(preview.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))),
+  ).toBeVisible();
   await expect(page.getByText(/untitled/i)).toBeVisible();
 });
 

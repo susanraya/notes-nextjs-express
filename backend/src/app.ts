@@ -9,6 +9,7 @@
 import cors from "cors";
 import express, { type Express } from "express";
 
+import { router } from "./routes/api.js";
 
 export function createApp(): Express {
   const app = express();
@@ -29,6 +30,10 @@ export function createApp(): Express {
     res.json({ status: "ok" });
   });
 
+  // The endpoints the approved API spec actually names (GET /healthz, GET /*): mounted
+  // after the generic /health check above so that one keeps answering regardless of what
+  // a development ticket does with the routes below it.
+  app.use(router);
 
   return app;
 }

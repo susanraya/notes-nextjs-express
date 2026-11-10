@@ -1,0 +1,38 @@
+{
+  "architecture_npm": [
+    "@serwist/next",
+    "dexie",
+    "serwist"
+  ],
+  "key": {
+    "app_design_id": "46b19733-5a2e-41a8-8050-afc6220a8bb4",
+    "app_design_version": 1,
+    "architecture_document_id": "6543a4b9-2573-457e-97f1-6a530712b394",
+    "architecture_version": 1
+  },
+  "outcome": "prepared",
+  "packages": [
+    {
+      "ecosystem": "npm",
+      "installed_version": "4.4.7",
+      "name": "dexie",
+      "status": "installed",
+      "version": ">=4.0.0"
+    },
+    {
+      "ecosystem": "npm",
+      "installed_version": "9.5.13",
+      "name": "@serwist/next",
+      "status": "installed",
+      "version": ""
+    },
+    {
+      "ecosystem": "npm",
+      "installed_version": "9.5.13",
+      "name": "serwist",
+      "status": "installed",
+      "version": ""
+    }
+  ],
+  "prepared_by_run": "d4bd21ef-cea0-4857-b30c-d221f2176d0b"
+}

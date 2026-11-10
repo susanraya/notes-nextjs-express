@@ -3,16 +3,12 @@
 // cannot do. Next.js renders on the server unless a module says otherwise.
 
 // @ts-nocheck -- generated from the approved design under its JS runtime contract; not hand-written TypeScript.
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 
 import * as UI from "@/lib/ui";
 import { Icons } from "@/lib/icons";
 import { brand } from "@/lib/brand";
 import { useNavigate } from "@/lib/navigate";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { Search, Edit } = Icons;
 
 const INK = brand.primaryColor;
 const GOLD = brand.accentColor;
@@ -161,7 +157,10 @@ export default function Screen() {
         >
           Guide &nbsp;&#9670;&nbsp; Reviewed 10 November 2026
         </p>
-        <h1 className="mt-4 text-[30px] uppercase leading-tight sm:text-[40px]" style={headingStyle}>
+        <h1
+          className="mt-4 text-[30px] uppercase leading-tight sm:text-[40px]"
+          style={headingStyle}
+        >
           Help &amp; Limitations
         </h1>
         <DoubleRule className="mx-auto mt-6 max-w-[640px]" />
@@ -300,7 +299,29 @@ export default function Screen() {
             style={{ borderTop: `1px solid ${HAIR}`, color: MUTED }}
           >
             If you clear your browser data, change browser or change device, these notes will not
-            follow you. Keep anything you cannot afford to lose somewhere else as well.
+            follow you. Keep anything you cannot afford to lose somewhere else as well. There is no
+            backup, export, import or sync feature anywhere in this app.
+          </div>
+        </Frame>
+      </section>
+
+      {/* Row 4b — privacy & compliance note */}
+      <section data-wf="b-3-1" className="gy-rise mt-10">
+        <Frame>
+          <div className="px-5 py-7 text-center sm:px-10 sm:py-9">
+            <h2 className="text-[18px] uppercase sm:text-[20px]" style={headingStyle}>
+              Privacy &amp; compliance note
+            </h2>
+            <p
+              className="mx-auto mt-5 max-w-[62ch] text-[13px] leading-[1.7]"
+              style={{ color: MUTED }}
+            >
+              No personal data ever leaves this browser — nothing is sent to a server, and the app
+              loads no analytics, telemetry or third-party tracking of any kind. Because no personal
+              data reaches a server, we treat India&rsquo;s DPDP server-side obligations
+              (consent/notice, breach notification and data residency) as not triggered. This is an
+              assumption to be validated, not a legal conclusion.
+            </p>
           </div>
         </Frame>
       </section>

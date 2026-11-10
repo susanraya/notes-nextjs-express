@@ -59,8 +59,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               className="mt-6 px-3 text-xs leading-relaxed"
               style={{ color: "var(--brand-fg-muted)" }}
             >
-              Notes are stored only in this browser on this device — not synced across
-              devices, and lost if browser data is cleared or the device changes. See{" "}
+              Notes are stored only in this browser on this device — not synced across devices, and
+              lost if browser data is cleared or the device changes. See{" "}
               <Link href="/help" className="underline">
                 Help &amp; Limitations
               </Link>

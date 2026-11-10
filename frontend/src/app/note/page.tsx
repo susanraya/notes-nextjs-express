@@ -13,9 +13,8 @@ import { brand } from "@/lib/brand";
 import { useNavigate } from "@/lib/navigate";
 import { db } from "@/lib/db";
 
- 
 const { Button, Input, Textarea, Label, Badge } = UI;
- 
+
 const { Edit } = Icons;
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -159,8 +158,8 @@ export default function Screen() {
             setTitle(rec.title);
             setBody(rec.body);
             setTags(rec.tags || []);
-            setCreatedAt(rec.createdAt);
-            setUpdatedAt(rec.updatedAt);
+            setCreatedAt(rec.created_at);
+            setUpdatedAt(rec.updated_at);
           } else {
             setId(noteId);
           }
@@ -240,8 +239,8 @@ export default function Screen() {
       title,
       body,
       tags,
-      createdAt: nextCreatedAt,
-      updatedAt: now,
+      created_at: nextCreatedAt,
+      updated_at: now,
     };
     db.notes
       .put(record)
@@ -258,11 +257,9 @@ export default function Screen() {
 
   const confirmDelete = () => {
     setDeleting(true);
-    db.notes
-      .delete(id)
-      .finally(() => {
-        later(() => navigate("notes"), 700);
-      });
+    db.notes.delete(id).finally(() => {
+      later(() => navigate("notes"), 700);
+    });
   };
 
   const fieldStyle = {
@@ -522,7 +519,8 @@ export default function Screen() {
                     className="mt-2 text-[12px]"
                     style={{ color: tagHint ? ink : muted }}
                   >
-                    {tagHint || "Type a tag and press Enter. Free-form — no folders, no fixed list."}
+                    {tagHint ||
+                      "Type a tag and press Enter. Free-form — no folders, no fixed list."}
                   </p>
 
                   {tags.length > 0 ? (

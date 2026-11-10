@@ -60,8 +60,8 @@ describe("Note editor", () => {
       title: "Existing",
       body: "Some body",
       tags: ["work", "ideas"],
-      createdAt: "2026-11-01T10:00:00.000Z",
-      updatedAt: "2026-11-02T10:00:00.000Z",
+      created_at: "2026-11-01T10:00:00.000Z",
+      updated_at: "2026-11-02T10:00:00.000Z",
     });
     setSearchParams(new URLSearchParams("id=n_1"));
 
@@ -110,8 +110,8 @@ describe("Note editor", () => {
       title: "Markup",
       body: "**bold** and - [ ] a checkbox",
       tags: [],
-      createdAt: "2026-11-01T10:00:00.000Z",
-      updatedAt: "2026-11-01T10:00:00.000Z",
+      created_at: "2026-11-01T10:00:00.000Z",
+      updated_at: "2026-11-01T10:00:00.000Z",
     });
     setSearchParams(new URLSearchParams("id=n_md"));
 
@@ -133,7 +133,7 @@ describe("Note editor", () => {
 
     await waitFor(() => expect(notesMock.put).toHaveBeenCalledTimes(1));
     const saved = notesMock.put.mock.calls[0][0];
-    expect(saved.createdAt).toBe(saved.updatedAt);
+    expect(saved.created_at).toBe(saved.updated_at);
   });
 
   it("[AC-012] on re-save only updated_at changes", async () => {
@@ -142,8 +142,8 @@ describe("Note editor", () => {
       title: "Resave",
       body: "original",
       tags: [],
-      createdAt: "2026-11-01T10:00:00.000Z",
-      updatedAt: "2026-11-01T10:00:00.000Z",
+      created_at: "2026-11-01T10:00:00.000Z",
+      updated_at: "2026-11-01T10:00:00.000Z",
     });
     setSearchParams(new URLSearchParams("id=n_resave"));
 
@@ -156,8 +156,8 @@ describe("Note editor", () => {
 
     await waitFor(() => expect(notesMock.put).toHaveBeenCalledTimes(1));
     const saved = notesMock.put.mock.calls[0][0];
-    expect(saved.createdAt).toBe("2026-11-01T10:00:00.000Z");
-    expect(saved.updatedAt).not.toBe("2026-11-01T10:00:00.000Z");
+    expect(saved.created_at).toBe("2026-11-01T10:00:00.000Z");
+    expect(saved.updated_at).not.toBe("2026-11-01T10:00:00.000Z");
   });
 
   it("[AC-013] displays the created and last-updated timestamps from stored data", async () => {
@@ -166,8 +166,8 @@ describe("Note editor", () => {
       title: "Stamped",
       body: "body",
       tags: [],
-      createdAt: "2026-11-01T10:00:00.000Z",
-      updatedAt: "2026-11-05T12:30:00.000Z",
+      created_at: "2026-11-01T10:00:00.000Z",
+      updated_at: "2026-11-05T12:30:00.000Z",
     });
     setSearchParams(new URLSearchParams("id=n_stamp"));
 

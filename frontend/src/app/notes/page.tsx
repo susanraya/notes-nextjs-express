@@ -5,15 +5,17 @@
 // @ts-nocheck -- generated from the approved design under its JS runtime contract; not hand-written TypeScript.
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
+import { useRouter } from "next/navigation";
 
 import * as UI from "@/lib/ui";
 import { Icons } from "@/lib/icons";
 import { brand } from "@/lib/brand";
 import { useNavigate } from "@/lib/navigate";
+import { db } from "@/lib/db";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const { Button, Input, Label, Badge, Empty } = UI;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const { Search, Filter } = Icons;
 
 const SCREEN = "My Notes";
@@ -28,118 +30,32 @@ const TAG_FILTERS = [
   { key: "recipes", label: "recipes", wf: "i-2-0-4" },
 ];
 
-const NOTES = [
-  {
-    id: "n-standup",
-    wf: "i-3-0-0",
-    title: "Standup notes",
-    body: "Blocked on the service worker cache name. Asha is taking the tag filter. Demo on Thursday, keep it to five minutes.",
-    tags: ["work"],
-    created_at: "2026-11-03T09:10",
-    updated_at: "2026-11-10T11:42",
-  },
-  {
-    id: "n-grocery",
-    wf: "i-3-0-1",
-    title: "Grocery list",
-    body: "Toor dal 1kg, curd, curry leaves, two lemons, mustard oil, idli rice, Bru coffee, one coconut.",
-    tags: ["personal"],
-    created_at: "2026-11-09T17:52",
-    updated_at: "2026-11-09T18:05",
-  },
-  {
-    id: "n-journal",
-    wf: "i-3-0-2",
-    title: "App idea: offline journal",
-    body: "One text box, no accounts, no sync. Everything stays in the browser. Tags instead of folders. Ships in a weekend.",
-    tags: ["ideas"],
-    created_at: "2026-11-07T20:58",
-    updated_at: "2026-11-07T21:30",
-  },
-  {
-    id: "n-chai",
-    wf: "i-3-0-3",
-    title: "Chai masala proportions",
-    body: "Green cardamom 20g, cinnamon 8g, cloves 5g, dry ginger 15g, black pepper 4g. Grind coarse, store in a steel dabba.",
-    tags: ["recipes"],
-    created_at: "2026-10-18T08:40",
-    updated_at: "2026-11-02T08:12",
-  },
-  {
-    id: "n-retro",
-    title: "Sprint retro — what to stop doing",
-    body: "Stop reopening tickets after QA signs off. Start writing the acceptance note before the branch. Keep the Friday freeze.",
-    tags: ["work"],
-    created_at: "2026-11-06T15:44",
-    updated_at: "2026-11-06T16:20",
-  },
-  {
-    id: "n-rent",
-    title: "Rent agreement renewal dates",
-    body: "Current term ends 31 Jan 2027. Notice to the owner by 31 Dec. Registration charges split half and half, as last time.",
-    tags: ["personal"],
-    created_at: "2026-11-05T20:31",
-    updated_at: "2026-11-05T20:48",
-  },
-  {
-    id: "n-untitled",
-    title: "",
-    body: "Call the electrician about the kitchen socket — mornings only, after 10. Quote was 1,200 including the switch.",
-    tags: ["personal"],
-    created_at: "2026-11-04T07:50",
-    updated_at: "2026-11-04T07:55",
-  },
-  {
-    id: "n-tagsonly",
-    title: "Ideas: tags instead of folders",
-    body: "Folders force one home per note. Tags let the chai recipe be both recipes and personal. Filter is a single tap.",
-    tags: ["ideas"],
-    created_at: "2026-11-03T22:02",
-    updated_at: "2026-11-03T22:14",
-  },
-  {
-    id: "n-bisibele",
-    title: "Bisi bele bath — amma's measurements",
-    body: "Rice 1 cup, toor dal 3/4 cup, tamarind lime-sized, powder 3 tbsp. Vegetables go in before the dal, never after.",
-    tags: ["recipes", "personal"],
-    created_at: "2026-10-30T11:15",
-    updated_at: "2026-11-01T12:30",
-  },
-  {
-    id: "n-interview",
-    title: "Interview questions for the Express role",
-    body: "Ask about error middleware ordering. Ask what they put in a healthz route. Twenty minutes of code, ten of questions.",
-    tags: ["work"],
-    created_at: "2026-10-28T09:20",
-    updated_at: "2026-10-29T10:05",
-  },
-  {
-    id: "n-books",
-    title: "Books to finish before December",
-    body: "Em and the Big Hoom. The Shipping News. Half of A Suitable Boy, which has been half-read since March.",
-    tags: ["personal"],
-    created_at: "2026-10-26T19:12",
-    updated_at: "2026-10-27T19:40",
-  },
-  {
-    id: "n-rasam",
-    title: "Lemon rasam without dal",
-    body: "Tomato two, pepper-jeera crushed coarse, lemon squeezed off the flame. Coriander at the end or it turns bitter.",
-    tags: ["recipes"],
-    created_at: "2026-10-24T12:58",
-    updated_at: "2026-10-24T13:15",
-  },
-];
-
 export default function Screen() {
   const navigate = useNavigate();
-  const [notes, setNotes] = React.useState(NOTES);
+  const router = useRouter();
+  const [notes, setNotes] = React.useState([]);
+  const [loadState, setLoadState] = React.useState("loading"); // loading | ready | error
   const [query, setQuery] = React.useState("");
   const [tag, setTag] = React.useState("all");
   const [pending, setPending] = React.useState(null);
   const [status, setStatus] = React.useState("");
   const dialogRef = React.useRef(null);
   const searchWrapRef = React.useRef(null);
+
+  const loadNotes = React.useCallback(async () => {
+    setLoadState("loading");
+    try {
+      const rows = await db.notes.orderBy("updatedAt").reverse().toArray();
+      setNotes(rows);
+      setLoadState("ready");
+    } catch {
+      setLoadState("error");
+    }
+  }, []);
+
+  React.useEffect(() => {
+    loadNotes();
+  }, [loadNotes]);
 
   const focusSearch = () => {
     const wrap = searchWrapRef.current;
@@ -169,7 +85,11 @@ export default function Screen() {
     outlineOffset: 3,
     borderRadius: brand.radius,
   };
-  const caps = { fontFamily: brand.fontHeading, textTransform: "uppercase", letterSpacing: "0.3em" };
+  const caps = {
+    fontFamily: brand.fontHeading,
+    textTransform: "uppercase",
+    letterSpacing: "0.3em",
+  };
   const nums = { fontVariantNumeric: "tabular-nums" };
 
   const term = query.trim().toLowerCase();
@@ -184,9 +104,23 @@ export default function Screen() {
   const stamp = (iso) => {
     const d = new Date(iso);
     const pad = (v) => String(v).padStart(2, "0");
-    return pad(d.getDate()) + " " + MONTHS[d.getMonth()] + " " + d.getFullYear() + ", " + pad(d.getHours()) + ":" + pad(d.getMinutes());
+    return (
+      pad(d.getDate()) +
+      " " +
+      MONTHS[d.getMonth()] +
+      " " +
+      d.getFullYear() +
+      ", " +
+      pad(d.getHours()) +
+      ":" +
+      pad(d.getMinutes())
+    );
   };
   const displayTitle = (n) => (n.title.trim() !== "" ? n.title : n.body.slice(0, 44).trim() + "…");
+
+  const openNote = (n) => {
+    router.push("/note?id=" + encodeURIComponent(n.id));
+  };
 
   const clearAll = () => {
     setTag("all");
@@ -195,17 +129,26 @@ export default function Screen() {
     focusSearch();
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (!pending) return;
-    setNotes((prev) => prev.filter((n) => n.id !== pending.id));
-    setStatus("Deleted “" + displayTitle(pending) + "”. It cannot be recovered.");
-    setPending(null);
+    const victim = pending;
+    try {
+      await db.notes.delete(victim.id);
+      setNotes((prev) => prev.filter((n) => n.id !== victim.id));
+      setStatus("Deleted “" + displayTitle(victim) + "”. It cannot be recovered.");
+    } catch {
+      setStatus("Could not delete this note. Please try again.");
+    } finally {
+      setPending(null);
+    }
   };
 
   const rule = (
     <div aria-hidden className="flex items-center gap-3">
       <span className="h-px flex-1" style={{ backgroundColor: brand.accentColor }} />
-      <span className="text-xs" style={{ color: brand.accentColor }}>◆</span>
+      <span className="text-xs" style={{ color: brand.accentColor }}>
+        ◆
+      </span>
       <span className="h-px flex-1" style={{ backgroundColor: brand.accentColor }} />
     </div>
   );
@@ -229,8 +172,13 @@ export default function Screen() {
       {/* Row 1 */}
       <div className="grid grid-cols-12 items-center gap-6">
         <header data-wf="b-0-0" className="col-span-12 space-y-3 text-center md:col-span-8">
-          <h1 className="text-3xl" style={caps}>{SCREEN}</h1>
-          <p className="text-[10px] uppercase tracking-[0.35em]" style={{ color: brand.neutralColor, ...nums }}>
+          <h1 className="text-3xl" style={caps}>
+            {SCREEN}
+          </h1>
+          <p
+            className="text-[10px] uppercase tracking-[0.35em]"
+            style={{ color: brand.neutralColor, ...nums }}
+          >
             Kept in this browser — {notes.length} note{notes.length === 1 ? "" : "s"} on this device
           </p>
         </header>
@@ -260,7 +208,11 @@ export default function Screen() {
 
       {/* Row 2 */}
       <div data-wf="b-1-0" className="mx-auto w-full max-w-xl space-y-3 text-center">
-        <Label htmlFor="note-search" className="block text-[10px] uppercase tracking-[0.3em]" style={{ color: brand.neutralColor }}>
+        <Label
+          htmlFor="note-search"
+          className="block text-[10px] uppercase tracking-[0.3em]"
+          style={{ color: brand.neutralColor }}
+        >
           Search titles and body text
         </Label>
         <div
@@ -268,7 +220,11 @@ export default function Screen() {
           className="flex items-center gap-3 px-4"
           style={{ border: `1px solid ${brand.accentColor}`, borderRadius: brand.radius }}
         >
-          <Icons.Search aria-hidden className="h-4 w-4 shrink-0" style={{ color: brand.accentColor }} />
+          <Icons.Search
+            aria-hidden
+            className="h-4 w-4 shrink-0"
+            style={{ color: brand.accentColor }}
+          />
           <Input
             id="note-search"
             type="search"
@@ -282,8 +238,16 @@ export default function Screen() {
       </div>
 
       {/* Row 3 */}
-      <section data-wf="b-2-0" aria-labelledby="tag-filter-heading" className="space-y-4 text-center">
-        <h2 id="tag-filter-heading" className="flex items-center justify-center gap-2 text-[10px] uppercase tracking-[0.3em]" style={{ color: brand.neutralColor }}>
+      <section
+        data-wf="b-2-0"
+        aria-labelledby="tag-filter-heading"
+        className="space-y-4 text-center"
+      >
+        <h2
+          id="tag-filter-heading"
+          className="flex items-center justify-center gap-2 text-[10px] uppercase tracking-[0.3em]"
+          style={{ color: brand.neutralColor }}
+        >
           <Icons.Filter aria-hidden className="h-3.5 w-3.5" style={{ color: brand.accentColor }} />
           Filter by tag
         </h2>
@@ -331,36 +295,90 @@ export default function Screen() {
       </section>
 
       {/* Row 4 */}
-      <section data-wf="b-3-0" aria-labelledby="note-list-heading" className="p-6 sm:p-8" style={frame}>
+      <section
+        data-wf="b-3-0"
+        aria-labelledby="note-list-heading"
+        className="p-6 sm:p-8"
+        style={frame}
+      >
         <div className="space-y-3 text-center">
           <h2 id="note-list-heading" className="text-sm" style={caps}>
             {filtered.length} note{filtered.length === 1 ? "" : "s"}
           </h2>
-          <p className="text-[10px] uppercase tracking-[0.3em]" style={{ color: brand.neutralColor, ...nums }}>
-            {filtering ? "Filtered from " + notes.length + " on this device" : "Newest change first"}
+          <p
+            className="text-[10px] uppercase tracking-[0.3em]"
+            style={{ color: brand.neutralColor, ...nums }}
+          >
+            {filtering
+              ? "Filtered from " + notes.length + " on this device"
+              : "Newest change first"}
           </p>
           {rule}
         </div>
 
-        <p aria-live="polite" className="mt-4 min-h-[16px] text-center text-[11px] tracking-[0.1em]" style={{ color: brand.neutralColor }}>
+        <p
+          aria-live="polite"
+          className="mt-4 min-h-[16px] text-center text-[11px] tracking-[0.1em]"
+          style={{ color: brand.neutralColor }}
+        >
           {status}
         </p>
 
-        {filtered.length > 0 ? (
+        {loadState === "loading" ? (
+          <p
+            className="mt-8 text-center text-[11px] uppercase tracking-[0.3em]"
+            style={{ color: brand.neutralColor, ...nums }}
+          >
+            Loading your notes…
+          </p>
+        ) : loadState === "error" ? (
+          <div className="mt-2 grid grid-cols-12">
+            <div className="col-span-12 p-6 md:col-span-6 md:col-start-4" style={frame}>
+              <Empty
+                title="Could not load your notes"
+                description="Something went wrong reading this browser's storage. Try again."
+                action={
+                  <Button
+                    onClick={loadNotes}
+                    className="gq-focus inline-flex min-h-[44px] items-center gap-3 px-6 text-[11px]"
+                    style={{
+                      backgroundColor: brand.primaryColor,
+                      color: brand.accentColor,
+                      borderRadius: brand.radius,
+                      fontFamily: brand.fontHeading,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.3em",
+                    }}
+                  >
+                    Try again
+                  </Button>
+                }
+              />
+            </div>
+          </div>
+        ) : filtered.length > 0 ? (
           <ul className="mt-2">
             {filtered.map((n, i) => (
-              <li key={n.id} className="gq-row flex items-center gap-4 px-2 py-4" style={{ borderTop: i === 0 ? "none" : `1px solid ${brand.accentColor}66` }}>
+              <li
+                key={n.id}
+                className="gq-row flex items-center gap-4 px-2 py-4"
+                style={{ borderTop: i === 0 ? "none" : `1px solid ${brand.accentColor}66` }}
+              >
                 <span
                   aria-hidden
                   className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-base"
-                  style={{ border: `1px solid ${brand.accentColor}`, fontFamily: brand.fontHeading, color: brand.accentColor }}
+                  style={{
+                    border: `1px solid ${brand.accentColor}`,
+                    fontFamily: brand.fontHeading,
+                    color: brand.accentColor,
+                  }}
                 >
                   {displayTitle(n).charAt(0).toUpperCase()}
                 </span>
                 <button
                   type="button"
-                  data-wf={n.wf}
-                  onClick={() => navigate("note")}
+                  data-wf={"note-" + n.id}
+                  onClick={() => openNote(n)}
                   className="gq-focus min-h-[44px] flex-1 text-left"
                 >
                   <span className="flex flex-wrap items-center gap-2 text-xs" style={caps}>
@@ -368,17 +386,28 @@ export default function Screen() {
                     {n.title.trim() === "" ? (
                       <Badge
                         className="text-[9px] uppercase tracking-[0.2em]"
-                        style={{ backgroundColor: "transparent", border: `1px solid ${brand.neutralColor}`, color: brand.neutralColor, borderRadius: brand.radius }}
+                        style={{
+                          backgroundColor: "transparent",
+                          border: `1px solid ${brand.neutralColor}`,
+                          color: brand.neutralColor,
+                          borderRadius: brand.radius,
+                        }}
                       >
                         Untitled
                       </Badge>
                     ) : null}
                   </span>
-                  <span className="mt-2 block text-[10px] uppercase tracking-[0.22em]" style={{ color: brand.neutralColor, ...nums }}>
-                    updated {stamp(n.updated_at)} · {n.tags.join(" · ")}
+                  <span
+                    className="mt-2 block text-[10px] uppercase tracking-[0.22em]"
+                    style={{ color: brand.neutralColor, ...nums }}
+                  >
+                    updated {stamp(n.updatedAt)} · {n.tags.join(" · ")}
                   </span>
-                  <span className="mt-1 block text-[10px] tracking-[0.12em]" style={{ color: brand.neutralColor, ...nums }}>
-                    created {stamp(n.created_at)}
+                  <span
+                    className="mt-1 block text-[10px] tracking-[0.12em]"
+                    style={{ color: brand.neutralColor, ...nums }}
+                  >
+                    created {stamp(n.createdAt)}
                   </span>
                 </button>
                 <button
@@ -386,7 +415,11 @@ export default function Screen() {
                   aria-label={"Delete note: " + displayTitle(n)}
                   onClick={() => setPending(n)}
                   className="gq-focus flex h-11 w-11 shrink-0 items-center justify-center"
-                  style={{ border: `1px solid ${brand.accentColor}`, borderRadius: brand.radius, color: brand.primaryColor }}
+                  style={{
+                    border: `1px solid ${brand.accentColor}`,
+                    borderRadius: brand.radius,
+                    color: brand.primaryColor,
+                  }}
                 >
                   <Icons.Trash aria-hidden className="h-4 w-4" />
                 </button>
@@ -397,7 +430,11 @@ export default function Screen() {
           /* Row 5 */
           <div className="mt-2 grid grid-cols-12">
             {notes.length === 0 ? (
-              <div data-wf="b-4-0" className="col-span-12 p-6 md:col-span-6 md:col-start-4" style={frame}>
+              <div
+                data-wf="b-4-0"
+                className="col-span-12 p-6 md:col-span-6 md:col-start-4"
+                style={frame}
+              >
                 <Empty
                   title="Nothing written yet"
                   description="No notes yet. Tap New note to write your first one."
@@ -421,13 +458,21 @@ export default function Screen() {
                 />
               </div>
             ) : (
-              <div data-wf="b-4-1" className="col-span-12 p-6 md:col-span-6 md:col-start-4" style={frame}>
+              <div
+                data-wf="b-4-1"
+                className="col-span-12 p-6 md:col-span-6 md:col-start-4"
+                style={frame}
+              >
                 <Empty
                   title="Nothing matches"
                   description={
                     term !== ""
-                      ? "No results for “" + query.trim() + "”. Clear the search or the tag filter to see all notes."
-                      : "No notes carry the tag “" + tag + "”. Clear the search or the tag filter to see all notes."
+                      ? "No results for “" +
+                        query.trim() +
+                        "”. Clear the search or the tag filter to see all notes."
+                      : "No notes carry the tag “" +
+                        tag +
+                        "”. Clear the search or the tag filter to see all notes."
                   }
                   action={
                     <Button
@@ -456,7 +501,11 @@ export default function Screen() {
 
       {/* Row 6 */}
       {pending ? (
-        <div data-wf="b-5-0" className="fixed inset-0 z-50 flex items-center justify-center p-6" style={{ backgroundColor: "rgba(18,32,28,0.62)" }}>
+        <div
+          data-wf="b-5-0"
+          className="fixed inset-0 z-50 flex items-center justify-center p-6"
+          style={{ backgroundColor: "rgba(18,32,28,0.62)" }}
+        >
           <div
             ref={dialogRef}
             role="dialog"
@@ -470,11 +519,19 @@ export default function Screen() {
               Delete “{displayTitle(pending)}”?
             </h2>
             <div className="mt-4">{rule}</div>
-            <p id="delete-copy" className="mt-4 text-sm leading-relaxed" style={{ color: brand.primaryColor }}>
-              Deleted notes cannot be recovered. This note lives only in this browser, so there is no copy anywhere else.
+            <p
+              id="delete-copy"
+              className="mt-4 text-sm leading-relaxed"
+              style={{ color: brand.primaryColor }}
+            >
+              Deleted notes cannot be recovered. This note lives only in this browser, so there is
+              no copy anywhere else.
             </p>
-            <p className="mt-2 text-[10px] uppercase tracking-[0.25em]" style={{ color: brand.neutralColor, ...nums }}>
-              updated {stamp(pending.updated_at)} · {pending.tags.join(" · ")}
+            <p
+              className="mt-2 text-[10px] uppercase tracking-[0.25em]"
+              style={{ color: brand.neutralColor, ...nums }}
+            >
+              updated {stamp(pending.updatedAt)} · {pending.tags.join(" · ")}
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
@@ -516,10 +573,18 @@ export default function Screen() {
       {/* Row 7 */}
       <footer data-wf="b-6-0" className="mx-auto max-w-2xl space-y-3 text-center">
         {rule}
-        <p className="flex items-start justify-center gap-3 text-sm leading-relaxed" style={{ color: brand.neutralColor }}>
-          <Icons.AlertCircle aria-hidden className="mt-0.5 h-4 w-4 shrink-0" style={{ color: brand.accentColor }} />
+        <p
+          className="flex items-start justify-center gap-3 text-sm leading-relaxed"
+          style={{ color: brand.neutralColor }}
+        >
+          <Icons.AlertCircle
+            aria-hidden
+            className="mt-0.5 h-4 w-4 shrink-0"
+            style={{ color: brand.accentColor }}
+          />
           <span>
-            Your notes are stored only in this browser on this device. Nothing is sent to a server, and notes will be lost if you clear browser data or switch devices.
+            Your notes are stored only in this browser on this device. Nothing is sent to a server,
+            and notes will be lost if you clear browser data or switch devices.
           </span>
         </p>
       </footer>

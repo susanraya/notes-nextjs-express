@@ -21,8 +21,8 @@ export interface Note {
   body: string;
   /** Free-form, user-typed tags -- not drawn from a fixed list. */
   tags: string[];
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 }
 
 class NotesDatabase extends Dexie {
@@ -31,12 +31,12 @@ class NotesDatabase extends Dexie {
   constructor() {
     super("notes-nextjs-express");
     // `*tags` is a multi-entry index: a note with several tags is found by any one of
-    // them, which tag filtering needs. `updatedAt` is indexed so the list can sort by
+    // them, which tag filtering needs. `updated_at` is indexed so the list can sort by
     // most-recently-changed without scanning every row. Full-text search over title and
     // body has no index to use -- Dexie has none that matches free text -- so it stays
     // a plain scan in whichever screen implements it.
     this.version(1).stores({
-      notes: "id, updatedAt, createdAt, *tags",
+      notes: "id, updated_at, created_at, *tags",
     });
   }
 }
